@@ -1,0 +1,27 @@
+<ion-view >
+  <ion-content class="auth" >
+   <div class="top-content row">
+     <div class="col center">
+       <img src="img/logo.png" >
+       <h1 class="logo">TICKETCLOUD</h1>
+     </div>
+   </div>
+   <div class="buttom-content row">
+      <div class="col center">
+         <label class="item item-input">
+          <i class="icon ion-email placeholder-icon"></i>
+          <input ng-model="form.correo" type="email" placeholder="Correo" autocorrect="off" >
+        </label>
+        <label class="item item-input">
+         <i class="icon ion-locked placeholder-icon"></i>
+         <input ng-model="form.pass" type="password" placeholder="Contraseña" autocorrect="off" >
+        </label> 
+
+        <p class="error" ng-if="error">El correo electrónico o la contraseña que has introducido no coinciden con ninguna cuenta.</p>
+        <button class="button button-full button-green" ng-click="login()" ng-disabled="!form.correo || !form.pass">Entrar</button>
+        <p> <a href="" class="link">¿Olvido su contraseña?</a></p>
+        <p><a href="#/auth/signup" class="link">Registrarse</a></p>
+      </div>
+   </div>
+  </ion-content>
+</ion-view>

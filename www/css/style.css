@@ -1,0 +1,92 @@
+@font-face {
+    font-family: 'OpenSans';
+    src: url('../fonts/OpenSans-Regular.ttf') format('truetype');
+    font-weight: 300;
+}
+
+body * {
+  font-family: 'OpenSans', Fallback, sans-serif;
+}
+
+.auth{
+  background: #2A3D51;
+}
+
+
+
+.auth .top-content{
+  height: 55%;
+  text-align: center;
+}
+
+.auth .top-content .center{
+ -webkit-align-self: center;
+    -moz-align-self: center;
+    -ms-flex-item-align: center;
+    align-self: center;
+}
+
+.auth .buttom-content {
+  height: 45%;
+  text-align: center;
+  width: 70%;
+  margin: 0 auto;
+ 
+}
+
+
+.auth .buttom-content .center{
+ -webkit-align-self: center;
+    -moz-align-self: center;
+    -ms-flex-item-align: center;
+    align-self: center;
+}
+
+.auth .logo{
+  color:white;
+  margin-top: 0;
+}
+
+.auth label{
+  background: #2A3D51;
+  border-left: none;
+  border-right: none;
+  padding: 10px;
+}
+
+
+.auth .item-input{
+  font-size: 25px;
+}
+
+.auth input, select, textarea{
+    color:  #ddd;
+}
+
+.auth .item-input input{
+   padding-left: 15px;
+}
+.auth .item-floating-label .placeholder-icon {
+  padding-right: 18px;
+  position: absolute;
+  bottom: 9px;
+  left: 17px;
+}
+.auth .button-green{
+  margin: 35px 0 25px 0;
+  background: #00838F;
+  color: white;
+}
+
+.auth .link{
+  text-decoration: none;
+  color: #ddd;
+}
+
+
+.auth .error{
+  padding-top: 15px;
+  color: #F44336;
+}
+
+
