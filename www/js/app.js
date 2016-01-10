@@ -40,7 +40,8 @@ angular.module('ticketCloudApp', ['ionic',
 
   .state('auth.signup', {
     url: "/signup",
-    templateUrl: "views/auth/auth-signup.html"
+    templateUrl: "views/auth/auth-signup.html",
+     controller:"SignupCtrl"
   })
 
 

@@ -31,8 +31,20 @@ angular.module('ticketCloudApp.services', [])
 
 		},
 		registro:function(user) {
-			
-		};
+			return auth.$createUser({
+				email: user.correo,
+				password: user.pass
+			}).then(function(authData) {
+				var perfil={
+					nombre: user.nombre,
+					email: user.correo,
+					}
+				 ref.child("usuarios").child(authData.uid).set({
+						profile: perfil
+						});
+				return authData; 	
+			})
+		}
 	}
  	
 })
