@@ -11,5 +11,8 @@
 		<button  class="button button-icon icon ion-plus-circled" ui-sref="app.new-post({id: tema.id})"></button>
 	</ion-nav-buttons>
 
-     <ion-content>Hello!</ion-content>
+     <ion-content>
+		<h1>{{user.nombre || 'a mi no me engañas no estas log'}}</h1>
+		<h1>{{user.email}}</h1>
+ 	 </ion-content>
 </ion-view>

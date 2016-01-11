@@ -10,10 +10,8 @@ angular.module('ticketCloudApp.controllers', [])
 	      template: 'Esperando solicitud...'
 	    });
   		var user= $scope.form;
-  		console.log(user)
         authFactory.login(user).then(
         	function(authData) {
-        		console.log(authData)
         		$state.go('tab.home')
         	},
         	function(error) {
@@ -42,10 +40,10 @@ angular.module('ticketCloudApp.controllers', [])
   		var user= $scope.form;
         authFactory.registro(user).then(
         	function(authData) {		
-        		console.log("User creado con exito "+authData.uid)
         		$scope.exito=true;
         		$timeout(function() {
-        			$scope.exito=false
+        			$scope.exito=false;
+              $state.go('auth.login');
         		},3000)
         		// authFactory.login(user).then(
         		// 	function(authData) {
@@ -105,10 +103,19 @@ angular.module('ticketCloudApp.controllers', [])
   	}
   })
 
-  .controller('TabCtrl',function(authFactory,$scope) {
-     $scope.cerraSesion=function() {
+  .controller('TabCtrl',function(authFactory,$scope,$state) {
+
+    if(authFactory.isLogin())
+    $scope.user=authFactory.getUser();
+
+
+     $scope.cerrarSesion=function() {
+      console.log("Session cerrada");
         authFactory.cerrarSesion();
-     };
+        $state.go('auth.login');
+
+
+     }
 
   });
  

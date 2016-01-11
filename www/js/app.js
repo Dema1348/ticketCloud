@@ -65,6 +65,7 @@ angular.module('ticketCloudApp', ['ionic',
 
   .state('tab.home', {
     url: '/home',
+     cache: false,
     views: {
       'tab-home': {
         templateUrl: 'views/app/tab-home.html'
@@ -74,6 +75,7 @@ angular.module('ticketCloudApp', ['ionic',
 
   .state('tab.ticket', {
     url: '/ticket',
+     cache: false,
     views: {
       'tab-ticket': {
         templateUrl: 'views/app/tab-ticket.html'
@@ -82,6 +84,7 @@ angular.module('ticketCloudApp', ['ionic',
   })
   .state('tab.perfil', {
     url: '/perfil',
+     cache: false,
     views: {
       'tab-perfil': {
         templateUrl: 'views/app/tab-perfil.html'
