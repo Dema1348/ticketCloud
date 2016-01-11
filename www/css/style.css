@@ -8,9 +8,10 @@ body * {
   font-family: 'OpenSans', Fallback, sans-serif;
 }
 
-.auth{
+.auth, textarea{
   background: #2A3D51;
 }
+
 
 
 
@@ -68,6 +69,11 @@ body * {
 .auth .item-input input{
    padding-left: 15px;
 }
+
+.auth .item-input textarea{
+   padding-left: 15px;
+}
+
 .auth .item-floating-label .placeholder-icon {
   padding-right: 18px;
   position: absolute;

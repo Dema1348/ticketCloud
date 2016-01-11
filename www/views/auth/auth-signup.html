@@ -20,7 +20,7 @@
          <i class="icon ion-locked placeholder-icon"></i>
          <input ng-model="form.pass" type="password" placeholder="Contraseña" autocorrect="off" >
         </label> 
-        <p class="error" ng-if="error">Ha ocurrido un error al registrar su cuenta.</p>
+        <p class="error" ng-if="error">{{mensaje}}</p>
         <p class="exito" ng-if="exito">Su cuenta se ha creado satisfactoriamente.</p>
         <button class="button button-full button-green" ng-click="registro()" ng-disabled="!form.correo || !form.pass || !form.nombre">Registrarse</button>
       </div>

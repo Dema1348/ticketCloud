@@ -1,7 +1,7 @@
 <ion-view>
 	<ion-nav-bar class="bar-stable">
 	<ion-nav-title>
-		<span>Inicio</span>
+		<span>Mi ticket</span>
 	</ion-nav-title>
       <ion-nav-back-button>
       </ion-nav-back-button>
@@ -11,8 +11,27 @@
 		<button  class="button button-icon icon ion-plus-circled" ui-sref="app.new-post({id: tema.id})"></button>
 	</ion-nav-buttons>
 
-     <ion-content>
-		<h1>{{user.nombre || 'a mi no me engañas no estas log'}}</h1>
-		<h1>{{user.email}}</h1>
- 	 </ion-content>
+   <ion-content class="auth" scroll="false">
+   
+ 
+      <div class="padding">
+      	<label class="item item-input">
+         <i class="icon ion-person placeholder-icon"></i>
+         <input ng-model="form.nombre" type="text" placeholder="Asunto" autocorrect="off" >
+        </label> 
+        <label class="item item-input">
+         <i class="icon ion-person placeholder-icon"></i>
+         <textarea ng-model="form.nombre" placeholder="Descripcion" autocorrect="off"></textarea>
+      
+        </label> 
+         <label class="item item-input">
+         <i class="icon ion-person placeholder-icon"></i>
+         <input ng-model="form.nombre" type="text" placeholder="Ubicacion" autocorrect="off" >
+        </label> 
+        <p class="error" ng-if="error">{{mensaje}}</p>
+        <p class="exito" ng-if="exito">Su cuenta se ha creado satisfactoriamente.</p>
+        <button class="button button-full button-green" ng-click="registro()" ng-disabled="!form.correo || !form.pass || !form.nombre">Crear ticket</button>
+      </div>
+ 
+  </ion-content>
 </ion-view>

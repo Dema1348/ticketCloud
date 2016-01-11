@@ -14,7 +14,7 @@
           <input ng-model="form.correo" type="email" placeholder="Correo" autocorrect="off" >
         </label>
         <p class="exito">Indique su correo electronico para reiniciar su contraseña.</p>
-    	<p class="error" ng-if="error">Su correo no se encuentra registrado.</p>
+    	<p class="error" ng-if="error">{{mensaje}}</p>
         <p class="exito" ng-if="exito">Se ha enviado el correo satisfactoriamente.</p>   
         <button class="button button-full button-green" ng-click="reset()" ng-disabled="!form.correo">Reinicio de contraseña</button>
       </div>

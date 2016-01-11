@@ -17,7 +17,7 @@
          <input ng-model="form.pass" type="password" placeholder="Contraseña" autocorrect="off" >
         </label> 
 
-        <p class="error" ng-if="error">El correo electrónico o la contraseña que has introducido no coinciden con ninguna cuenta.</p>
+        <p class="error" ng-if="error">{{mensaje}}</p>
         <button class="button button-full button-green" ng-click="login()" ng-disabled="!form.correo || !form.pass">Ingresar</button>
         <a class="button button-full button-registro"  href="#/auth/signup">Registarse</a>
 

@@ -264,16 +264,24 @@ angular.module('ticketCloudApp.services', [])
 			return auth.$createUser({
 				email: user.correo,
 				password: user.pass
+			}).then(function() {
+				return auth.$authWithPassword({
+					email: user.correo,
+					password: user.pass})
 			}).then(function(authData) {
 				var perfil={
 					nombre: user.nombre,
 					email: user.correo,
 					gravatar: get_gravatar(user.correo, 40)
 					}
-				 ref.child("usuarios").child(authData.uid).set({
-						profile: perfil
+					
+					ref.child("usuarios").child(authData.uid).set({
+						profile: perfil,
+						provider:authData.provider
 						});
-				return authData; 	
+					
+
+				
 			})
 		},
 		reset:function(user) {
@@ -284,19 +292,12 @@ angular.module('ticketCloudApp.services', [])
 		cerrarSesion: function(){
 			 auth.$unauth();
 		},
-		isLogin:function() {
-			auth.$onAuth(function(authData) {
-				if(authData){
-					return true;
-				}
-				else{
-					return false;
-				}
-
-			});
-		},
+		getAuth:function() {
+			return auth;
+		}
+		,
 		getUser:function() {
-			var authData = ref.getAuth();
+			var authData = auth.$getAuth();
 			return $firebaseObject(ref.child('usuarios').child(authData.uid).child('profile'))
 
 		}
