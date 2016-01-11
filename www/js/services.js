@@ -44,6 +44,18 @@ angular.module('ticketCloudApp.services', [])
 						});
 				return authData; 	
 			})
+		},
+		reset:function(user) {
+			return auth.$resetPassword({
+				email: user.correo
+			})
+		},
+		sesionIniciada: function(){
+			return !!auth.usuario.provider; //Devuelve false, null en caso de que el usuario haya o no iniciado sesión.
+		},
+
+		cerrarSesion: function(){
+			auth.$unauth();
 		}
 	}
  	

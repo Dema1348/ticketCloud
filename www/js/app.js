@@ -34,14 +34,24 @@ angular.module('ticketCloudApp', ['ionic',
 
   .state('auth.login', {
     url: "/login",
+    cache: false,
     templateUrl: "views/auth/auth-login.html",
     controller:"LoginCtrl"
   })
 
   .state('auth.signup', {
     url: "/signup",
+    cache: false,
     templateUrl: "views/auth/auth-signup.html",
      controller:"SignupCtrl"
+  })
+
+
+  .state('auth.reset', {
+    url: "/reset",
+    cache: false,
+    templateUrl: "views/auth/auth-reset.html",
+     controller:"ResetCtrl"
   })
 
 
@@ -49,15 +59,32 @@ angular.module('ticketCloudApp', ['ionic',
   .state('tab', {
     url: '/tab',
     abstract: true,
-    templateUrl: 'views/app/tabs.html'
+    templateUrl: 'views/app/tabs.html',
+    controller:"TabCtrl"
   })
 
   .state('tab.home', {
     url: '/home',
     views: {
       'tab-home': {
-        templateUrl: 'views/app/tab-home.html',
-        controller: 'HomeCtrl'
+        templateUrl: 'views/app/tab-home.html'
+      }
+    }
+  })
+
+  .state('tab.ticket', {
+    url: '/ticket',
+    views: {
+      'tab-ticket': {
+        templateUrl: 'views/app/tab-ticket.html'
+      }
+    }
+  })
+  .state('tab.perfil', {
+    url: '/perfil',
+    views: {
+      'tab-perfil': {
+        templateUrl: 'views/app/tab-perfil.html'
       }
     }
   });

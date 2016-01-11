@@ -1,13 +1,13 @@
 <ion-view >
-  <ion-content class="auth" >
-   <div class="top-content row">
-     <div class="col center">
+  <ion-content class="auth" scroll="false">
+   <div class="top-content ">
+     <div class="center">
        <img src="img/logo.png" >
        <h1 class="logo">TICKETCLOUD</h1>
      </div>
    </div>
-   <div class="buttom-content row">
-      <div class="col center">
+   <div class="buttom-content ">
+      <div class="center">
       	<label class="item item-input">
          <i class="icon ion-person placeholder-icon"></i>
          <input ng-model="form.nombre" type="text" placeholder="Nombre" autocorrect="off" >
@@ -20,7 +20,8 @@
          <i class="icon ion-locked placeholder-icon"></i>
          <input ng-model="form.pass" type="password" placeholder="Contraseña" autocorrect="off" >
         </label> 
-        <p class="error" ng-if="error">Ha ocurrido un error al crear su cuenta.</p>
+        <p class="error" ng-if="error">Ha ocurrido un error al registrar su cuenta.</p>
+        <p class="exito" ng-if="exito">Su cuenta se ha creado satisfactoriamente.</p>
         <button class="button button-full button-green" ng-click="registro()" ng-disabled="!form.correo || !form.pass || !form.nombre">Registrarse</button>
       </div>
    </div>

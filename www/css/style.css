@@ -1,7 +1,7 @@
 @font-face {
     font-family: 'OpenSans';
     src: url('../fonts/OpenSans-Regular.ttf') format('truetype');
-    font-weight: 300;
+    font-weight: 400;
 }
 
 body * {
@@ -15,19 +15,21 @@ body * {
 
 
 .auth .top-content{
-  height: 55%;
+  height: 40%;
   text-align: center;
+
 }
 
 .auth .top-content .center{
- -webkit-align-self: center;
+  -webkit-align-self: center;
     -moz-align-self: center;
     -ms-flex-item-align: center;
     align-self: center;
+ 
 }
 
 .auth .buttom-content {
-  height: 45%;
+  height: 60%;
   text-align: center;
   width: 70%;
   margin: 0 auto;
@@ -60,7 +62,7 @@ body * {
 }
 
 .auth input, select, textarea{
-    color:  #ddd;
+    color:  #fff;
 }
 
 .auth .item-input input{
@@ -78,6 +80,12 @@ body * {
   color: white;
 }
 
+.auth .button-registro{
+  margin: 0 0 25px 0;
+  background: #00ACC1;
+  color: white;
+}
+
 .auth .link{
   text-decoration: none;
   color: #ddd;
@@ -89,4 +97,9 @@ body * {
   color: #F44336;
 }
 
+
+.auth .exito{
+  padding-top: 15px;
+  color: #03A9F4;
+}
 
