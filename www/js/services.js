@@ -1,4 +1,4 @@
-angular.module('ticketCloudApp.services', [])
+angular.module('ticketCloud.services', [])
 
 .factory('ticketCloudFactory', function($firebase,$firebaseAuth) {
  	var ref=  new Firebase('https://ticketcloud.firebaseio.com');
@@ -21,7 +21,9 @@ angular.module('ticketCloudApp.services', [])
 .factory('authFactory',function($firebase,$firebaseAuth,$firebaseObject) {
 	var ref=  new Firebase('https://ticketcloud.firebaseio.com');
 	var auth=  $firebaseAuth(ref);
-	
+	var user={};
+
+
 
 	//Función para obetener el Gravatar del usuario, de acuerdo al email
 	function get_gravatar(email, size) {
@@ -252,25 +254,35 @@ angular.module('ticketCloudApp.services', [])
 	      return 'https://www.gravatar.com/avatar/' + MD5(email) + '.jpg?d=identicon';
 	    }
 
+	auth.$onAuth(function(authData) {
+			if(authData) {      
+		      user.perfil = $firebaseObject(ref.child('usuarios').child(authData.uid).child('profile'));
+		  	}
+		  })
+		      
 	return{
 		login:function(user) {
 			return auth.$authWithPassword({
 				email: user.correo,
-				password: user.pass
+				password: user.password
 			})
+
+
 
 		},
 		registro:function(user) {
 			return auth.$createUser({
 				email: user.correo,
-				password: user.pass
+				password: user.password
 			}).then(function() {
+
 				return auth.$authWithPassword({
 					email: user.correo,
-					password: user.pass})
+					password: user.password})
 			}).then(function(authData) {
 				var perfil={
 					nombre: user.nombre,
+					apellido: user.apellido,
 					email: user.correo,
 					gravatar: get_gravatar(user.correo, 40)
 					}
@@ -286,7 +298,7 @@ angular.module('ticketCloudApp.services', [])
 		},
 		reset:function(user) {
 			return auth.$resetPassword({
-				email: user.correo
+				email: user.correoReset
 			})
 		},
 		cerrarSesion: function(){
@@ -294,12 +306,41 @@ angular.module('ticketCloudApp.services', [])
 		},
 		getAuth:function() {
 			return auth;
-		}
-		,
+		},
 		getUser:function() {
-			var authData = auth.$getAuth();
-			return $firebaseObject(ref.child('usuarios').child(authData.uid).child('profile'))
+			return user;
+		},loginTwitter:function() {
+			return auth.$authWithOAuthPopup("twitter").then(function(authData,error) {
 
+				if(authData){
+					var perfil={
+					nombre: authData.twitter.displayName,
+					username:authData.twitter.username,
+					img: authData.twitter.profileImageURL
+					}
+					
+					ref.child("usuarios").child(authData.uid).set({
+						profile: perfil,
+						provider:authData.provider
+						});
+				}
+			})
+		},loginFace:function() {
+
+			return auth.$authWithOAuthPopup("facebook").then(function(authData,error) {
+				console.log(authData)
+				if(authData){
+					var perfil={
+					nombre: authData.facebook.displayName,
+					img: authData.facebook.profileImageURL
+					}
+					
+					ref.child("usuarios").child(authData.uid).set({
+						profile: perfil,
+						provider:authData.provider
+						});
+				}
+			})
 		}
 	}
  	

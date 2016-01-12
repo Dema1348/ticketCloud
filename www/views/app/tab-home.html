@@ -1,37 +1,33 @@
-<ion-view>
-	<ion-nav-bar class="bar-stable">
-	<ion-nav-title>
-		<span>Mi ticket</span>
-	</ion-nav-title>
-      <ion-nav-back-button>
-      </ion-nav-back-button>
-    </ion-nav-bar>
+<ion-view title="Inicio">
+  
 
-	<ion-nav-buttons side="right">
-		<button  class="button button-icon icon ion-plus-circled" ui-sref="app.new-post({id: tema.id})"></button>
-	</ion-nav-buttons>
-
-   <ion-content class="auth" scroll="false">
-   
- 
-      <div class="padding">
-      	<label class="item item-input">
-         <i class="icon ion-person placeholder-icon"></i>
-         <input ng-model="form.nombre" type="text" placeholder="Asunto" autocorrect="off" >
-        </label> 
-        <label class="item item-input">
-         <i class="icon ion-person placeholder-icon"></i>
-         <textarea ng-model="form.nombre" placeholder="Descripcion" autocorrect="off"></textarea>
-      
-        </label> 
-         <label class="item item-input">
-         <i class="icon ion-person placeholder-icon"></i>
-         <input ng-model="form.nombre" type="text" placeholder="Ubicacion" autocorrect="off" >
-        </label> 
-        <p class="error" ng-if="error">{{mensaje}}</p>
-        <p class="exito" ng-if="exito">Su cuenta se ha creado satisfactoriamente.</p>
-        <button class="button button-full button-green" ng-click="registro()" ng-disabled="!form.correo || !form.pass || !form.nombre">Crear ticket</button>
+  <ion-content class="padding">
+    <div class="row form-heading">
+      <div class="col">
+        <h1 class="form-title">Bienvenido {{user.perfil.nombre}} {{user.perfil.apellido}}</h1>
+        <h3 class="form-sub-title">Para crear un nuevo ticket ingrese los datos solicitados</h3>
       </div>
+    </div>
+
+ 
+    <div class="row form-wrapper">
+      <div class="col">
+        <form name="login_form" class="" novalidate>
+          <div class="form-fields-outer list list-inset">
+            <label class="item item-input">
+              <input type="email" placeholder="Correo" name="username" ng-model="user.correo" required>
+            </label>
+            <label class="item item-input" show-hide-container>
+              <input type="password" placeholder="Constraseña" name="password" ng-model="user.password" required show-hide-input>
+            </label>
+            <button type="submit" class="login button button-block" ng-click="showLogOutMenu()" ng-disabled="login_form.$invalid">
+              Iniciar sesión
+            </button>
+            <p ng-show="error" class="message error">{{error}}</p>
+          </div>
+        </form>
+      </div>
+    </div>
  
   </ion-content>
 </ion-view>
