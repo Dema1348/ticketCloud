@@ -1,18 +1,22 @@
 angular.module('ticketCloud.services', [])
 
-.factory('ticketCloudFactory', function($firebase,$firebaseAuth) {
+.factory('ticketFactory', function($firebase,$firebaseArray) {
  	var ref=  new Firebase('https://ticketcloud.firebaseio.com');
  	var refTickets= new Firebase('https://ticketcloud.firebaseio.com/tickets');
-
+ 	var tickets= $firebaseArray(refTickets);
  	return{
- 		ref: function() {
- 			return ref;
- 		},
+ 		
  		refTickts:function() {
  			return refTickets;
- 		}, 
- 		auth:function() {
- 			return $firebaseAuth(ref)
+ 		},
+ 		crearTicket:function(ticket) {
+ 			console.log(ticket)
+ 			return tickets.$add({
+ 				asunto: ticket.asunto,
+ 				ubicacion: ticket.ubicacion || 'Sin ubicacion',
+ 				problema: ticket.problema,
+ 				tiempo: Firebase.ServerValue.TIMESTAMP
+ 			})
  		}
  		
  	}

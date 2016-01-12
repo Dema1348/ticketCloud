@@ -12,10 +12,12 @@ angular.module('ticketCloud', [
   'ticketCloud.controllers',
   'ticketCloud.services',
   'firebase',
-  'underscore'
+  'underscore',
+  'ionic-native-transitions',
+  'monospaced.elastic'
 ])
 
-.run(function($ionicPlatform,authFactory,$rootScope,authFactory, $state,$ionicActionSheet,$ionicLoading,$timeout,$ionicHistory) {
+.run(function($ionicPlatform,authFactory,$rootScope,authFactory, $state,$ionicLoading) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -35,29 +37,9 @@ $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState
   }
 });
 
-$rootScope.showLogOutMenu = function() {
-    // Show the action sheet
-    var hideSheet = $ionicActionSheet.show({
-      destructiveText: 'Cerrar sesión',
-      titleText: '¿Estas seguro que quieres salir?.',
-      cancelText: 'Cancelar',
-      destructiveButtonClicked: function(){
-              $ionicLoading.show({
-                template: 'Cerrando sesion...'
-            });
-          //Logout en firebase
-          authFactory.cerrarSesion();
-          //Limpio la cache y history en ionic
-          $timeout(function() {
-                    $ionicHistory.clearCache();
-                    $ionicHistory.clearHistory();
-                    $ionicLoading.hide();
-                    $state.go('start')
-                }, 300);
-      }
-    });
 
-  };
+
+
 
 
   });
@@ -66,13 +48,23 @@ $rootScope.showLogOutMenu = function() {
 })
 
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider,$ionicNativeTransitionsProvider) {
+
+   $ionicNativeTransitionsProvider.setDefaultBackTransition({
+        type: 'flip',
+        direction: 'right'
+    });
+
   $stateProvider
 
 
   .state('start', {
     url: "/start",
     cache:false,
+     nativeTransitionsAndroid: {
+        "type": "flip",
+        "direction": "left"
+    },
     templateUrl: "views/auth/start.html",
     controller: 'StartCtrl'
   })
@@ -80,6 +72,10 @@ $rootScope.showLogOutMenu = function() {
   .state('crear-cuenta', {
     url: "/crear-cuenta",
     cache:false,
+     nativeTransitionsAndroid: {
+        "type": "flip",
+        "direction": "left"
+    },
     templateUrl: "views/auth/crear-cuenta.html",
     controller: 'CrearCuentaCtrl'
   })
@@ -87,6 +83,10 @@ $rootScope.showLogOutMenu = function() {
   .state('login', {
     url: "/login",
     cache:false,
+     nativeTransitionsAndroid: {
+        "type": "flip",
+        "direction": "left"
+    },
     templateUrl: "views/auth/login.html",
     controller: 'LoginCtrl'
   })
@@ -97,7 +97,8 @@ $rootScope.showLogOutMenu = function() {
   .state('tab', {
     url: '/tab',
     abstract: true,
-    templateUrl: 'views/app/tabs.html'
+    templateUrl: 'views/app/tabs.html',
+    controller:'TabCtrl'
   })
 
   .state('tab.home', {
@@ -118,17 +119,19 @@ $rootScope.showLogOutMenu = function() {
     authRequired: true,
     views: {
       'tab-ticket': {
-        templateUrl: 'views/app/tab-ticket.html'
+        templateUrl: 'views/app/tab-ticket.html',
+        controller:'TicketCtrl'
       }
     }
   })
-  .state('tab.perfil', {
-    url: '/perfil',
+  .state('tab.activos', {
+    url: '/activos',
     authRequired: true,
     cache: false,
     views: {
-      'tab-perfil': {
-        templateUrl: 'views/app/tab-perfil.html'
+      'tab-activos': {
+        templateUrl: 'views/app/tab-activos.html',
+        controller: 'ActivosCtrl'
       }
     }
   });

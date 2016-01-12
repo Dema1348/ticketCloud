@@ -114,6 +114,4 @@ angular.module('ticketCloud.directives', [])
 		replace: false,
 		transclude: false
 	};
-})
-
-;
+});

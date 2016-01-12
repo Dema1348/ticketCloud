@@ -5,8 +5,53 @@ angular.module('ticketCloud.controllers', [])
 
 })
 
-.controller('HomeCtrl', function($scope, $ionicActionSheet, $state,authFactory){
+.controller('HomeCtrl', function($scope, $state,authFactory){
 	$scope.user=authFactory.getUser();
+})
+
+.controller('TicketCtrl',function($scope,ticketFactory) {
+ $scope.ticket=[];
+
+ $scope.newTicket=function() {
+  var ticket= $scope.ticket;
+  ticketFactory.crearTicket(ticket).then(function(ref) {
+  var id = ref.key();
+  console.log("added record with id " + id);
+});
+ };
+
+})
+
+.controller('ActivosCtrl',function($scope) {
+
+})
+
+.controller('TabCtrl',function($scope, $state,$ionicActionSheet,$ionicHistory,$timeout,$ionicLoading,authFactory) {
+
+
+  $scope.showLogOutMenu = function() {
+    // Show the action sheet
+    var hideSheet = $ionicActionSheet.show({
+      destructiveText:  (ionic.Platform.isAndroid()?'<i class="icon ion-android-exit assertive"></i> ':'')+'Cerrar sesión',
+      titleText: '¿Estas seguro que quieres salir?.',
+      cancelText: 'Cancelar',
+      destructiveButtonClicked: function(){
+              $ionicLoading.show({
+                template: 'Cerrando sesion...'
+            });
+          //Logout en firebase
+          authFactory.cerrarSesion();
+          //Limpio la cache y history en ionic
+          $timeout(function() {
+                    $ionicHistory.clearCache();
+                    $ionicHistory.clearHistory();
+                    $ionicLoading.hide();
+                    $state.go('start')
+                }, 300);
+      }
+    });
+
+  };
 })
 
 
