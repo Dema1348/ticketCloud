@@ -1,29 +1,43 @@
-<ion-nav-bar class="bar-dark">
+
+<ion-nav-bar class="bar-dark" >
       <ion-nav-back-button>
       </ion-nav-back-button>
+      <ion-nav-buttons side="right">
+          <button class="button button-icon icon ion-android-more-vertical" ng-click="openPopover($event)" >
+          </button>
+      </ion-nav-buttons> 
 </ion-nav-bar>
-<ion-tabs class="tabs-striped tabs-top tabs-background-dark tabs-color-light">
 
- 
-  <ion-tab title="Inicio" icon-off="ion-ios-home-outline" icon-on="ion-ios-home" href="#/tab/home">
-    <ion-nav-view name="tab-home"></ion-nav-view>
-  </ion-tab>
-
-
-  <ion-tab title="Mis ticket" icon-off="ion-document" icon-on="ion-document-text" href="#/tab/ticket">
+<ion-tabs class="tabs-top tabs-background-dark tabs-color-light">
+  <ion-tab title="Ticket"  href="#/tab/ticket">
     <ion-nav-view name="tab-ticket"></ion-nav-view>
   </ion-tab>
 
-  <ion-tab title="Perfil" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear" href="#/tab/activos">
-    <ion-nav-view name="tab-activos"></ion-nav-view>
+
+  <ion-tab title="Estado" href="#/tab/estado">
+    <ion-nav-view name="tab-estado"></ion-nav-view>
   </ion-tab>
 
-
-  <ion-tab title="Salir" icon-off="ion-ios-redo-outline" icon-on="ion-ios-redo" ng-click="showLogOutMenu()">
-    <ion-nav-view name="tab-out"></ion-nav-view>
+  <ion-tab title="Perfil"  href="#/tab/perfil">
+    <ion-nav-view name="tab-perfil"></ion-nav-view>
   </ion-tab>
 
-
- 
 
 </ion-tabs>
+
+<script id="popover.html" type="text/ng-template" scroll="false" >
+      <ion-popover-view class="fit">
+        <ion-content>
+          <div class="list">
+            <a class="item" href="http://learn.ionicframework.com/" target="_blank">
+              Ayuda
+            </a>
+            <a class="item" ng-click="showLogOutMenu()" >
+              Cerrar sesion
+            </a> 
+           
+
+          </div>
+        </ion-content>
+      </ion-popover-view>
+    </script>

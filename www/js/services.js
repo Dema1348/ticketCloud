@@ -1,6 +1,6 @@
 angular.module('ticketCloud.services', [])
 
-.factory('ticketFactory', function($firebase,$firebaseArray) {
+.factory('ticketFactory', function($firebase,$firebaseArray,authFactory,$q) {
  	var ref=  new Firebase('https://ticketcloud.firebaseio.com');
  	var refTickets= new Firebase('https://ticketcloud.firebaseio.com/tickets');
  	var tickets= $firebaseArray(refTickets);
@@ -9,14 +9,27 @@ angular.module('ticketCloud.services', [])
  		refTickts:function() {
  			return refTickets;
  		},
- 		crearTicket:function(ticket) {
- 			console.log(ticket)
- 			return tickets.$add({
- 				asunto: ticket.asunto,
+ 		crearTicket:function(ticket) {	
+ 			var defered = $q.defer();  
+			var promise = defered.promise; 
+
+			defered.resolve(refTickets.once("value", function(snapshot) {
+				 tickets.$add({
+ 				numero:	snapshot.numChildren() ,
+ 				asunto: ticket.asunto || 'Sin asunto',
  				ubicacion: ticket.ubicacion || 'Sin ubicacion',
- 				problema: ticket.problema,
- 				tiempo: Firebase.ServerValue.TIMESTAMP
- 			})
+ 				problema: ticket.problema || 'Sin problema',
+ 				horaCreacion: Firebase.ServerValue.TIMESTAMP,
+ 				estatus: 0,
+ 				gravatar: authFactory.getUser().perfil.gravatar
+ 				})	
+			}));
+
+			return promise;
+ 			
+ 		},
+ 		allTickets:function() {
+ 			return tickets
  		}
  		
  	}

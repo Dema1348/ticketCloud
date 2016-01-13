@@ -1,7 +1,9 @@
 angular.module('ticketCloud.controllers', [])
 
 // APP - RIGHT MENU
-.controller('AppCtrl', function($scope){
+
+
+.controller('PerfilCtrl', function($scope){
 
 })
 
@@ -14,19 +16,36 @@ angular.module('ticketCloud.controllers', [])
 
  $scope.newTicket=function() {
   var ticket= $scope.ticket;
-  ticketFactory.crearTicket(ticket).then(function(ref) {
-  var id = ref.key();
-  console.log("added record with id " + id);
-});
+  ticketFactory.crearTicket(ticket).then(function(data) {
+    $scope.exito="Se ha creado con exito su ticket, por favor espere mientras se gestiona la solución."
+  })
+
+
  };
 
 })
 
-.controller('ActivosCtrl',function($scope) {
-
+.controller('EstadoCtrl',function($scope,ticketFactory) {
+ $scope.tickets=ticketFactory.allTickets();
 })
 
-.controller('TabCtrl',function($scope, $state,$ionicActionSheet,$ionicHistory,$timeout,$ionicLoading,authFactory) {
+.controller('TabCtrl',function($scope, $state,$ionicActionSheet,$ionicHistory,$timeout,$ionicLoading,authFactory,$ionicPopover) {
+  $ionicPopover.fromTemplateUrl('popover.html', {
+    scope: $scope,
+  }).then(function(popover) {
+    $scope.popover = popover;
+  });
+
+  $scope.openPopover = function($event) {
+    $scope.popover.show($event);
+  };
+  $scope.closePopover = function() {
+    $scope.popover.hide();
+  };
+  //Cleanup the popover when we're done with it!
+  $scope.$on('$destroy', function() {
+    $scope.popover.remove();
+  });
 
 
   $scope.showLogOutMenu = function() {
@@ -35,6 +54,9 @@ angular.module('ticketCloud.controllers', [])
       destructiveText:  (ionic.Platform.isAndroid()?'<i class="icon ion-android-exit assertive"></i> ':'')+'Cerrar sesión',
       titleText: '¿Estas seguro que quieres salir?.',
       cancelText: 'Cancelar',
+      cancel: function() {
+         $scope.popover.hide();
+      },
       destructiveButtonClicked: function(){
               $ionicLoading.show({
                 template: 'Cerrando sesion...'
@@ -58,7 +80,7 @@ angular.module('ticketCloud.controllers', [])
 
 .controller('StartCtrl', function($scope, $ionicModal, $state,authFactory,$state){
 	if(authFactory.getAuth().$getAuth())
-		$state.go("tab.home")
+		$state.go("tab.ticket")
 
 	$scope.bg = ["http://lorempixel.com/640/1136?1"];
 
@@ -90,7 +112,7 @@ angular.module('ticketCloud.controllers', [])
 
 .controller('CrearCuentaCtrl', function($scope, $state,$ionicLoading, authFactory){
 	if(authFactory.getAuth().$getAuth())
-		$state.go("tab.home")
+		$state.go("tab.ticket")
 
 	$scope.user=[];
 	$scope.doSignUp = function() {
@@ -100,7 +122,7 @@ angular.module('ticketCloud.controllers', [])
   		var user= $scope.user;
         authFactory.registro(user).then(
         	function() {		
-        		$state.go('tab.home')
+        		$state.go('tab.ticket')
         	},
         	function(error) {
        
@@ -130,13 +152,13 @@ angular.module('ticketCloud.controllers', [])
 
   	$scope.loginFace=function() {
   		authFactory.loginFace().then(function() {
-  				$state.go('tab.home')
+  				$state.go('tab.ticket')
   		})
   	};
 
   	$scope.loginTwitter=function() {
   		authFactory.loginTwitter().then(function() {
-  			$state.go('tab.home')
+  			$state.go('tab.ticket')
   		})
   	};
 })
@@ -144,7 +166,7 @@ angular.module('ticketCloud.controllers', [])
 
 .controller('LoginCtrl', function($scope, $ionicModal, $state,$ionicLoading, authFactory){
 	if(authFactory.getAuth().$getAuth())
-		$state.go("tab.home")
+		$state.go("tab.ticket")
 
 	$scope.user=[];
 	$scope.doLogIn = function() {
@@ -154,7 +176,7 @@ angular.module('ticketCloud.controllers', [])
   		var user= $scope.user;
         authFactory.login(user).then(
         	function(authData) {
-        		$state.go('tab.home')
+        		$state.go('tab.ticket')
         	},
         	function(error) {
             

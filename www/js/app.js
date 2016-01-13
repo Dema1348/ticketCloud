@@ -13,11 +13,12 @@ angular.module('ticketCloud', [
   'ticketCloud.services',
   'firebase',
   'underscore',
+  'angularMoment',
   'ionic-native-transitions',
   'monospaced.elastic'
 ])
 
-.run(function($ionicPlatform,authFactory,$rootScope,authFactory, $state,$ionicLoading) {
+.run(function($ionicPlatform,authFactory,$rootScope,authFactory, $state,$ionicLoading,amMoment) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -36,6 +37,8 @@ $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState
     event.preventDefault(); 
   }
 });
+
+  amMoment.changeLocale('es');
 
 
 
@@ -61,7 +64,7 @@ $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState
   .state('start', {
     url: "/start",
     cache:false,
-     nativeTransitionsAndroid: {
+     nativeTransitions: {
         "type": "flip",
         "direction": "left"
     },
@@ -72,7 +75,7 @@ $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState
   .state('crear-cuenta', {
     url: "/crear-cuenta",
     cache:false,
-     nativeTransitionsAndroid: {
+     nativeTransitions: {
         "type": "flip",
         "direction": "left"
     },
@@ -83,7 +86,7 @@ $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState
   .state('login', {
     url: "/login",
     cache:false,
-     nativeTransitionsAndroid: {
+     nativeTransitions: {
         "type": "flip",
         "direction": "left"
     },
@@ -101,21 +104,10 @@ $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState
     controller:'TabCtrl'
   })
 
-  .state('tab.home', {
-    url: '/home',
-    cache: false,
-    authRequired: true,
-    views: {
-      'tab-home': {
-        templateUrl: 'views/app/tab-home.html',
-        controller:'HomeCtrl'
-      }
-    }
-  })
-
   .state('tab.ticket', {
     url: '/ticket',
     cache: false,
+    nativeTransitions: null,
     authRequired: true,
     views: {
       'tab-ticket': {
@@ -124,14 +116,28 @@ $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState
       }
     }
   })
-  .state('tab.activos', {
-    url: '/activos',
+
+  .state('tab.estado', {
+    url: '/estado',
+    cache: false,
+    nativeTransitions: null,
+    authRequired: true,
+    views: {
+      'tab-estado': {
+        templateUrl: 'views/app/tab-estado.html',
+        controller:'EstadoCtrl'
+      }
+    }
+  })
+  .state('tab.perfil', {
+    url: '/perfil',
+    nativeTransitions: null,
     authRequired: true,
     cache: false,
     views: {
-      'tab-activos': {
-        templateUrl: 'views/app/tab-activos.html',
-        controller: 'ActivosCtrl'
+      'tab-perfil': {
+        templateUrl: 'views/app/tab-perfil.html',
+        controller: 'PerfilCtrl'
       }
     }
   });
